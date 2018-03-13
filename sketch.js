@@ -15,7 +15,7 @@ function init() {
 	camera.position.z = 20;
 	camera.lookAt(scene.position);
 	//mesh
-	geometry = new THREE.SphereGeometry( 1 , 50, 50);
+	geometry = new THREE.SphereGeometry( 1 , 200, 200);
 	material = new THREE.MeshLambertMaterial({color:0x0088aa});
 	mesh = new THREE.Mesh( geometry, material );
 	mesh.castShadow = true;

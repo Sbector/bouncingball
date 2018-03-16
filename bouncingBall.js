@@ -1,18 +1,21 @@
 var camera, scene, renderer;
 var geometry, material, mesh;
 var plane, planeMat, planeGeo;
+var fecha;
 
-var ambient, spotLight;
+var counter;
+
+var spotLight;
 
 function init() {
 	//scene
 	scene = new THREE.Scene();
-	scene.background = new THREE.Color( 0xffffff );
+	scene.background = new THREE.Color( 0xeeeeee );
 	//cámara
 	camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 500 );
 	camera.position.x = 0;
-	camera.position.y = 10;
-	camera.position.z = 20;
+	camera.position.y = 5;
+	camera.position.z = 25;
 	camera.lookAt(scene.position);
 	//mesh
 	geometry = new THREE.SphereGeometry( 1 , 200, 200);
@@ -20,16 +23,10 @@ function init() {
 	mesh = new THREE.Mesh( geometry, material );
 	mesh.castShadow = true;
 	scene.add( mesh );
-	//plane
-	//planeGeo = new THREE.PlaneGeometry(30,30,30);
-	//planeMat = new THREE.MeshLambertMaterial({color:0xffffff});
-	//plane = new THREE.Mesh(planeGeo, planeMat);
-	//plane.rotation.x = -0.5 * Math.PI;
-	//plane.reciveShadow = true;
-	//scene.add(plane);
-
 	//controls
-	controls = new THREE.TrackballControls( camera );
+
+	//controls = new THREE.TrackballControls( camera );
+
 
 	//light
 	spotLight = new THREE.SpotLight(0xffffff);
@@ -41,22 +38,37 @@ function init() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMapSoft = true;
+	renderer.shadowMapType = THREE.PCFSoftShadowMap;
+
+
+	controls = new THREE.OrbitControls( camera, renderer.domElement);
+	controls.maxPolarAngle = Math.PI/4; 
+
+	window.addEventListener( 'resize', function () {
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		renderer.setSize( width, height );
+		camera.aspect = width / height;
+		camera.updateProjectionMatrix();
+	} );
 
 	document.body.appendChild( renderer.domElement );				
 				
 }
 
 function animate( time ) {
-
-	//mesh.rotation.x = time * 0.0005;
-	//mesh.rotation.y = time * 0.001;
-	//var y = 2.5;
-	//mesh.position.y = y;
-	mesh.position.y = Math.abs( Math.sin( time * 0.002 ) ) * 10;
-	//mesh.position.y = time * -0.0005;
-
+	//Llamar fecha actual en ms
+	fecha = new Date().getTime();
+	//Cambiar posición de mesh en base al valor absoluto de seno de fecha
+	mesh.position.y = (Math.abs( Math.sin( fecha /600 ) ) * 8-2);
+	//Revisión de valores de fecha cuando mesh.position.y < 0
+	if(mesh.position.y < 0.001) {
+		console.log(fecha);
+		console.log(mesh.position.y);
+	}
 	//controls
-	controls.update();
+	//controls.update();
+
 
 	renderer.render( scene, camera );
 	requestAnimationFrame( animate );

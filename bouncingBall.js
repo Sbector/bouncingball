@@ -70,9 +70,9 @@ function init() {
 
 function animate( time ) {
 	//Llamar fecha actual en ms
-	fecha = new Date(this.syncDate).getTime();
+	//fecha = new Date(this.syncDate).getTime();
 	//Cambiar posición de mesh en base al valor absoluto de seno de fecha
-	mesh.position.y = (Math.abs( Math.sin( fecha /1000 ) ) * 8-2);
+	mesh.position.y = (Math.abs( Math.sin( this.syncDate /1000 ) ) * 8-2);
 	//Revisión de valores de fecha cuando mesh.position.y < 0
 	if(mesh.position.y < 0.001) {
 		console.log(fecha);

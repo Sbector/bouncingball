@@ -7,6 +7,19 @@ var counter;
 
 var spotLight;
 
+
+//obtención, sincronización y despliegue de fechas en el documento HTML
+var displayDate = function (){
+	this.UTC = Date.now();
+	this.offset = ServerDate - new Date();
+	this.actualDate = new Date();
+	this.syncDate = this.UTC + (this.offset);
+	document.getElementById("fecha").innerHTML = this.actualDate.toUTCString();
+	document.getElementById("milis").innerHTML = this.actualDate.getTime();
+	document.getElementById("sync").innerHTML = this.syncDate;
+	document.getElementById("real").innerHTML = new Date(this.syncDate).toUTCString();
+}
+
 function init() {
 	//scene
 	scene = new THREE.Scene();
@@ -39,11 +52,10 @@ function init() {
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMapSoft = true;
 	renderer.shadowMapType = THREE.PCFSoftShadowMap;
-
-
+	//controles
 	controls = new THREE.OrbitControls( camera, renderer.domElement);
 	controls.maxPolarAngle = Math.PI/4; 
-
+	//resize
 	window.addEventListener( 'resize', function () {
 		var width = window.innerWidth;
 		var height = window.innerHeight;
@@ -58,9 +70,9 @@ function init() {
 
 function animate( time ) {
 	//Llamar fecha actual en ms
-	fecha = new Date().getTime();
+	fecha = new Date(this.syncDate).getTime();
 	//Cambiar posición de mesh en base al valor absoluto de seno de fecha
-	mesh.position.y = (Math.abs( Math.sin( fecha /600 ) ) * 8-2);
+	mesh.position.y = (Math.abs( Math.sin( fecha /1000 ) ) * 8-2);
 	//Revisión de valores de fecha cuando mesh.position.y < 0
 	if(mesh.position.y < 0.001) {
 		console.log(fecha);
@@ -68,7 +80,7 @@ function animate( time ) {
 	}
 	//controls
 	//controls.update();
-
+	displayDate();
 
 	renderer.render( scene, camera );
 	requestAnimationFrame( animate );

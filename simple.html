@@ -5,10 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>BouncingBall</title>
+	<title>BouncingBallSimple</title>
 
 	<script src="libraries/three.js"></script>
-	<!-- <script src="libraries/TrackballControls.js"></script> -->
 	<script src="libraries/OrbitControls.js"></script>
 
 	<script src="libraries/p5.js"></script>
@@ -18,7 +17,7 @@
 
 	<style>
 		body {
-			background-color: #fff;
+			
 			margin:0;
 			padding:0;
 			overflow: hidden;
@@ -26,14 +25,20 @@
 		canvas {
 			margin:auto;
 		}
+		#info {
+			position: absolute;
+			bottom: 0px;
+			color: #fff;
+			background-color: #000;
+			width: 100%;
+		}
 	</style>
 </head>
 <body>
-	<p id="fecha">fecha</p>
-	<p id="milis">fecha</p>
-	<p id="sync">fecha</p>
-	<p id="real">fecha</p>
-	<a href="simple.html">Simple</a>
+	<div id="container"></div>
+	<div id="info">
+		<p id="counter">fecha</p>
+	</div>
 </body>
-<script src="bouncingBall.js"></script>
-</html>
+<script src="bouncingBall2.js"></script>
+</html

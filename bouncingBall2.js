@@ -1,7 +1,9 @@
+if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
 var camera, scene, renderer;
 var ball, ballMaterial, ballMesh;
 var floor, floorMaterial, floorMesh;
-var ballDiameter = 0.8;
+var ballDiameter = 0.3;
 
 var serverDate;
 
@@ -22,8 +24,8 @@ function init (){
 	scene.background = new THREE.Color(0xbbbbbb);
 	
 
-	camera = new THREE.PerspectiveCamera( 40, window.innerWidth/window.innerHeight, 0.1, 500);
-	camera.position.set(0,5,25);
+	camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 100);
+	camera.position.set(0,5,8);
 	camera.lookAt(scene.position);
 
 
@@ -46,7 +48,7 @@ function init (){
 	directionalLight.shadow.mapSize.y = 1024;
 
 
-	var floorGeometry = new THREE.PlaneBufferGeometry( 5, 20 );
+	var floorGeometry = new THREE.PlaneBufferGeometry( 10, 10 );
 	var floorMaterial = new THREE.MeshLambertMaterial( { color: 0xeeeeee } );
 	var floor = new THREE.Mesh( floorGeometry, floorMaterial );
 	floor.rotation.x = Math.PI * - 0.5;
@@ -54,7 +56,7 @@ function init (){
 	scene.add( floor );
 
 
-	var ballGeometry = new THREE.SphereBufferGeometry(ballDiameter,50,50);
+	var ballGeometry = new THREE.SphereBufferGeometry(ballDiameter,32,16);
 	ballGeometry.translate(0,ballDiameter,0);
 	var ballMaterial = new THREE.MeshLambertMaterial({color:0x0088cc});
 	ball = new THREE.Mesh(ballGeometry, ballMaterial);
@@ -89,7 +91,7 @@ function animate(time){
 	displayCounter();
 	serverDate = ServerDate.now();
 	//ball.position.y = (Math.abs( Math.sin( serverDate /1000 ) ) * 2);
-	ball.position.y = this.ServDate * 5;
+	ball.position.y = this.ServDate * 2.7;
 	renderer.render(scene, camera);
 	requestAnimationFrame(animate);
 }

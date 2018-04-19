@@ -8,11 +8,14 @@ var ballDiameter = 0.3;
 var serverDate;
 
 var displayCounter = function (){
-	this.ServDate = Math.abs(Math.sin(ServerDate.now()/1000));
-	document.getElementById('counter').innerHTML = this.ServDate;
+	this.serverDateUpdate = ServerDate.now()/1000
+	this.ServDate = Math.abs(Math.sin(this.serverDateUpdate));
+	document.getElementById('sinAbs').innerHTML = this.ServDate;
 	if(this.ServDate < 0.01){
-		document.getElementById('counter').innerHTML = 'puto';
+		document.getElementById('sinAbs').innerHTML = 'puto';
 		console.log('puto');
+		console.log(this.serverDateUpdate);
+		console.log(this.serverDateUpdate%3.14);
 	}
 }
 
